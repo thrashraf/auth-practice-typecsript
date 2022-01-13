@@ -1,8 +1,14 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
+
 
 export const Navbar = () => {
+
+    const location = useLocation()
+    console.log(location.pathname);
+
     return (
-        <div className={'flex h-14 bg-blue-400 text-white items-center justify-around'}>
+        <div className={'h-14 bg-blue-400 text-white items-center justify-around'} style={location.pathname === '/login' ? {display: 'none'} : {display: 'flex'}}>
             <span>thrashraf</span>
 
             <ul className='flex items-center'>

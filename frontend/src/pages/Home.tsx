@@ -30,7 +30,7 @@ const Home = () => {
     }
 
     return (
-        <div className='w-full flex flex-col justify-items-center items-center'>
+        <div className='w-full flex flex-col justify-items-center items-center bg-[#141c2f] text-white'>
             {/* {* this is to load spinner} */}
             { console.log(data)}
             { data.length > 0 ? <Card data={data} numberOfCard={numberOfCard} /> : <Spinner />  }
