@@ -16,6 +16,7 @@ interface data {
 
 interface Props {
     data: data[]
+    numberOfCard: number
 }
 
 export const Card = (props: Props) => {
@@ -25,7 +26,7 @@ export const Card = (props: Props) => {
 
     return (
         <div className=' grid grid-cols-3 m-auto gap-7 max-w-4xl mt-10'>
-            {props.data.slice().map(games => {
+            {props.data.slice(0, props.numberOfCard).map(games => {
                 console.log(games);
                 return (
                     <div key={games.id}>
