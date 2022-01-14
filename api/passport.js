@@ -12,13 +12,18 @@ passport.use(new GoogleStrategy({
   function(req, accessToken, refreshToken, profile, done) {
 
     //done(null, profile)
-    console.log(profile.id, profile.displayName, profile.emails[0].value)
+    console.log(profile)
     sql.query(`INSERT INTO users ( id, role, username, email ) values ('${profile.id}', 'user', '${profile.displayName}', '${profile.emails[0].value}')`, (err, user) => {
       if (err) {
         console.log(err)
       }
 
-      done(null, profile)
+      const userProfile = {
+        username: profile.displayName,
+        imageUrl: profile.photos[0].value
+      }
+
+      done(null, userProfile)
     })
   }
 ));

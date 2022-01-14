@@ -1,16 +1,24 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Navbar } from './Components/Navbar';
 import Home from './pages/Home';
 import { Login } from './pages/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
+import UserContext from './UserContext'
+
+
 
 const App:FC  = ()=> {
+
+  const [user, setUser] = useState({})
 
   useEffect(() => {
 
     axios.get('http://localhost:5000/auth/login/success', {withCredentials: true})
-    .then(res => console.log(res))
+    .then(res => {
+
+      setUser(res.data.user)
+    })
     .catch(err => console.log(err))
     
   }, [])
@@ -18,11 +26,13 @@ const App:FC  = ()=> {
   return (
     <div className='  w-full h-full'>
       <BrowserRouter>
+      <UserContext.Provider value={user} > 
         <Navbar />
         <Routes >
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
         </Routes>
+      </UserContext.Provider>
       </BrowserRouter>
     </div>
   );
