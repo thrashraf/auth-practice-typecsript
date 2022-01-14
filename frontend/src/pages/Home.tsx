@@ -7,12 +7,14 @@ const Home = () => {
 
     const [data, setData] = useState([])
     const [numberOfCard, setCard] = useState<number>(9);
+
+    
     
 
     useEffect(() => {
-        axios.get('https://www.freetogame.com/api/games') //https://www.freetogame.com/api/games
+        axios.get('http://localhost:5000/auth/games') //https://www.freetogame.com/api/games
         .then(res => {
-            // console.log(res.data)
+            //console.log(res)
             setData(res.data)
             
         })
@@ -32,7 +34,7 @@ const Home = () => {
     return (
         <div className='w-full flex flex-col justify-items-center items-center bg-[#141c2f] text-white'>
             {/* {* this is to load spinner} */}
-            { console.log(data)}
+            
             { data.length > 0 ? <Card data={data} numberOfCard={numberOfCard} /> : <Spinner />  }
 
             <button className=' text-blue-400 border-2 border-blue-400 rounded-xl px-10 py-3 my-10  hover:bg-blue-400 hover:text-white' onClick={increaseCardValue}>Add More</button>

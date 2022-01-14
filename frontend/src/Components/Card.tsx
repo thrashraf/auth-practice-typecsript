@@ -27,7 +27,7 @@ export const Card = (props: Props) => {
     return (
         <div className=' grid grid-cols-3 m-auto gap-7 max-w-4xl mt-10'>
             {props.data.slice(0, props.numberOfCard).map(games => {
-                console.log(games);
+                // console.log(games);
                 return (
                     <div key={games.id}>
                         <img src={games.thumbnail} alt={games.title}/>

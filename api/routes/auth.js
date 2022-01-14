@@ -1,5 +1,23 @@
 const router = require('express').Router();
+const { default: axios } = require('axios');
 const passport = require('passport')
+
+
+
+router.get('/games', (req, res) => {
+    
+    axios.get('https://www.freetogame.com/api/games') //https://www.freetogame.com/api/games
+        .then(result => {
+            // console.log(res.data)
+            res.json(result.data)
+            
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})
+
+
 
 
 
