@@ -8,11 +8,8 @@ const Home = () => {
     const [data, setData] = useState([])
     const [numberOfCard, setCard] = useState<number>(9);
 
-    
-    
-
     useEffect(() => {
-        axios.get('http://localhost:5000/auth/games') //https://www.freetogame.com/api/games
+        axios.get('http://localhost:5000/auth/games') 
         .then(res => {
             //console.log(res)
             setData(res.data)
