@@ -8,9 +8,7 @@ interface Props {
 
 export const Register = (props: Props) => {
 
-    const googleAuth = (): void => {
-        window.open("http://localhost:5000/auth/google", "_self")
-    }
+    
 
     return (
         <div className=' w-full grid grid-cols-2 overflow-hidden h-screen bg-[#1f2a48] text-white'>
