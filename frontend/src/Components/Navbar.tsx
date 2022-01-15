@@ -6,7 +6,7 @@ import UserContext from '../UserContext'
 
 export const Navbar = () => {
 
-    const location = useLocation()
+    const location = useLocation() 
     console.log(location.pathname);
 
     const user: any = useContext(UserContext)

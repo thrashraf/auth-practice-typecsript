@@ -11,20 +11,33 @@ passport.use(new GoogleStrategy({
   },
   function(req, accessToken, refreshToken, profile, done) {
 
-    //done(null, profile)
-    console.log(profile)
-    sql.query(`INSERT INTO users ( id, role, username, email ) values ('${profile.id}', 'user', '${profile.displayName}', '${profile.emails[0].value}')`, (err, user) => {
-      if (err) {
-        console.log(err)
-      }
+    const userProfile = {
+      username: profile.displayName,
+      imageUrl: profile.photos[0].value
+    }
 
-      const userProfile = {
-        username: profile.displayName,
-        imageUrl: profile.photos[0].value
-      }
+    sql.query(`SELECT * FROM users WHERE email = '${profile.emails[0].value}'`, (err, rows) => {
 
-      done(null, userProfile)
-    })
+      if (rows.length) {
+        console.log('user already exist')
+        done(null, userProfile)
+      } else {
+        
+      console.log('create user')
+      sql.query(`INSERT INTO users ( id, role, username, email ) values ('${profile.id}', 'user', '${profile.displayName}', '${profile.emails[0].value}')`, (err, user) => {
+
+        if (err) {
+          console.log(err)
+        }
+        done(null, userProfile)
+      })
+    };
+
+  })
+
+    
+    //console.log(profile)
+    
   }
 ));
 
