@@ -14,7 +14,7 @@ export const Navbar = () => {
     console.log(user);
 
     return (
-        <div className={'h-14 bg-blue-400 text-white items-center justify-around'} style={location.pathname === '/login' ? {display: 'none'} : {display: 'flex'}}>
+        <div className={'h-14 bg-blue-400 text-white items-center justify-around'} style={location.pathname === '/login' || location.pathname === '/register' ? {display: 'none'} : {display: 'flex'}}>
             <span>thrashraf</span>
 
             <ul className='flex items-center'>
