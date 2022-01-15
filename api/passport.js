@@ -33,12 +33,8 @@ passport.use(new GoogleStrategy({
       })
     };
 
-  })
-
-    
-    //console.log(profile)
-    
-  }
+  })}
+  
 ));
 
 passport.serializeUser((user, done) => {

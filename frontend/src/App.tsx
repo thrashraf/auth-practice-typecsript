@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Navbar } from './Components/Navbar';
 import Home from './pages/Home';
 import { Login } from './pages/Login';
+import { Register } from './pages/Register';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from './UserContext'
@@ -31,6 +32,7 @@ const App:FC  = ()=> {
         <Routes >
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </UserContext.Provider>
       </BrowserRouter>
