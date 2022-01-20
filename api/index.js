@@ -8,13 +8,13 @@ const authRoute = require('./routes/auth');
 
 const app = express()
 
-const expiryDate = new Date(Date.now() + 60 * 60 * 1000)
+
 
 app.use(cookieSession(
     {
         name: 'session',
         keys: ['thrashraf'],
-        maxAge: expiryDate
+        maxAge: new Date(Date.now() + (60*24*3600000))
     }
 ));
 

@@ -8,8 +8,6 @@ interface Props {
 
 export const Register = (props: Props) => {
 
-    
-
     return (
         <div className=' w-full grid grid-cols-2 overflow-hidden h-screen bg-[#1f2a48] text-white'>
             

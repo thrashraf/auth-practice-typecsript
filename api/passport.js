@@ -12,28 +12,43 @@ passport.use(new GoogleStrategy({
   },
   function(req, accessToken, refreshToken, profile, done) {
 
-    const userProfile = {
-      username: profile.displayName,
-      imageUrl: profile.photos[0].value
-    }
+   
+    const id = crypto.randomBytes(16).toString("hex");
+    
 
     sql.query(`SELECT * FROM users WHERE email = '${profile.emails[0].value}'`, (err, rows) => {
 
       if (rows.length) {
-        console.log('user already exist')
+        //console.log('user already exist')
+
+        const userProfile = {
+          id: rows[0].id,
+          username: rows[0].username,
+          imageUrl: profile.photos[0].value
+        }
+        console.log(userProfile);
         done(null, userProfile)
+
+
       } else {
         
       console.log('create user')
       //! need to store id by crypto not the google id.
       //? create unique id
-      const key = crypto.randomBytes(16);
+      
 
-      sql.query(`INSERT INTO users ( id, role, username, email ) values ('${profile.id}', 'user', '${profile.displayName}', '${profile.emails[0].value}')`, (err, user) => {
+      sql.query(`INSERT INTO users ( id, role, username, email ) values ('${id}', 'user', '${profile.displayName}', '${profile.emails[0].value}')`, (err, rows) => {
 
-        if (err) {
-          console.log(err)
+        if (err) return console.log(err);
+
+
+        const userProfile = {
+          id: id,
+          username: profile.displayName,
+          imageUrl: profile.photos[0].value
         }
+
+        console.log(userProfile);
         done(null, userProfile)
       })
     };
@@ -45,11 +60,19 @@ passport.use(new GoogleStrategy({
 
 //* this gonna send the id to be a cookies to browser
 passport.serializeUser((user, done) => {
+    //console.log(user);
     done(null, user)
 })
 
 //* this gonna be the find the user by the id and send back user information
 //? need to make find by id
 passport.deserializeUser((user, done) => {
+    
+  sql.query(`SELECT * FROM users WHERE id = '${user.id}'`, (err, rows) => {
+
+    if (err) return console.log(err);
+
     done(null, user)
+  });
+
 })
