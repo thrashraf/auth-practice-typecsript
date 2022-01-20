@@ -6,9 +6,9 @@ const passport = require('passport')
 
 router.get('/games', (req, res) => {
     
-    axios.get('https://www.freetogame.com/api/games') //https://www.freetogame.com/api/games
+    axios.get('https://www.freetogame.com/api/games?sort-by=popularity') 
         .then(result => {
-            // console.log(res.data)
+            //console.log(result)
             res.json(result.data)
             
         })
@@ -16,7 +16,6 @@ router.get('/games', (req, res) => {
             console.log(err)
         })
 })
-
 
 
 router.get('/login/success', (req, res) => {
