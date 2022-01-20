@@ -19,8 +19,6 @@ router.get('/games', (req, res) => {
 
 
 
-
-
 router.get('/login/success', (req, res) => {
 
     if (req.user) {

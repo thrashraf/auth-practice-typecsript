@@ -29,7 +29,7 @@ export const Card = (props: Props) => {
             {props.data.slice(0, props.numberOfCard).map(games => {
                 // console.log(games);
                 return (
-                    <div key={games.id}>
+                    <div key={games.id} className='cursor-pointer'>
                         <img src={games.thumbnail} alt={games.title}/>
                         <h1>{games.title}</h1>
                     </div>

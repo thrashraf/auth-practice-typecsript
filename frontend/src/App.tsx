@@ -11,14 +11,15 @@ import UserContext from './UserContext'
 
 const App:FC  = ()=> {
 
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState<any[]>([])
 
   useEffect(() => {
 
     axios.get('http://localhost:5000/auth/login/success', {withCredentials: true})
     .then(res => {
-
-      setUser(res.data.user)
+      const newUser = res.data.user;
+      setUser(user => [...user, newUser])
+      
     })
     .catch(err => console.log(err))
     
