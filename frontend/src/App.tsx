@@ -9,7 +9,7 @@ import UserContext from './UserContext'
 
 
 
-const App:FC  = ()=> {
+const App:FC  = () => {
 
   const [user, setUser] = useState<any[]>([])
 
