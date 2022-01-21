@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { GameDetail } from './pages/GameDetail';
 import axios from 'axios';
 import UserContext from './UserContext'
 
@@ -34,6 +35,7 @@ const App:FC  = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/game-detail/:id" element={<GameDetail />} />
         </Routes>
       </UserContext.Provider>
       </BrowserRouter>
