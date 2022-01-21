@@ -2,11 +2,14 @@ import React, { FC } from 'react';
 
 
 
-const  App: FC = () => {
+export const GameDetail: FC = () => {
   
-    return <div>
+    return (
 
-    </div>
+        <div>
+            <h1>hai</h1>
+        </div>
+    )
 };  
 
-export default App;
+
