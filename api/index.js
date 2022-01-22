@@ -4,6 +4,7 @@ const passport = require('passport');
 const cors = require('cors');
 const passportSetup = require('./passport');
 const authRoute = require('./routes/auth');
+const gameRoute = require('./routes/games');
 
 
 const app = express()
@@ -14,7 +15,7 @@ app.use(cookieSession(
     {
         name: 'session',
         keys: ['thrashraf'],
-        maxAge: new Date(Date.now() + (60*24*3600000))
+        maxAge:  365 * 24 * 60 * 60 * 1000
     }
 ));
 
@@ -28,8 +29,8 @@ app.use(cors({
     })
 );
 
-app.use('/auth', authRoute)
-
+app.use('/auth', authRoute);
+app.use('/game', gameRoute);
 
 
 app.listen('5000', (req, res) => {

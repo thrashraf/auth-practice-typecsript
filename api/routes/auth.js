@@ -3,21 +3,6 @@ const { default: axios } = require('axios');
 const passport = require('passport')
 
 
-
-router.get('/games', (req, res) => {
-    
-    axios.get('https://www.freetogame.com/api/games?sort-by=popularity') 
-        .then(result => {
-            //console.log(result)
-            res.json(result.data)
-            
-        })
-        .catch(err => {
-            console.log(err)
-        })
-})
-
-
 router.get('/login/success', (req, res) => {
 
     if (req.user) {

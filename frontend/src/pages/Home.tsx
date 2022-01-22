@@ -9,7 +9,7 @@ const Home = () => {
     const [numberOfCard, setCard] = useState<number>(9);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/auth/games') 
+        axios.get('http://localhost:5000/game/games') 
         .then(res => {
             console.log(res)
             setData(res.data)
