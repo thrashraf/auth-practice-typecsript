@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Spinner } from '../Components/Spinner/Spinner';
 
+
 export const GameDetail: FC = () => {
     
     const [gameDetail, setGameDetail] = useState<any[]>([])
@@ -15,14 +16,15 @@ export const GameDetail: FC = () => {
     useEffect(() => {
 
        async function fetch() {
+
+        
         await axios.get(`http://localhost:5000/game/games/search/${id}`)
         .then(res => {
-            //console.log(res);
+            console.log(res);
 
             const details = res.data
             setGameDetail(gameDetail => [...gameDetail, details])
             
-
         })
         .catch(err => {
             console.log(err);
@@ -30,6 +32,7 @@ export const GameDetail: FC = () => {
        }
 
         fetch()
+        window.scrollTo(0, 0);
 
     }, [id])
 
@@ -39,12 +42,12 @@ export const GameDetail: FC = () => {
 
   
     return (
-        <div className='bg-[#1f2a48] w-full h-screen '>
+        <div className='bg-[#1f2a48] w-full '>
             {gameDetail.length > 0 ? gameDetail.map(game => {
 
                 return (
 
-                    <div className=' max-w-4xl grid grid-cols-2 m-auto pt-20 gap-10' key={game.id}>
+                    <div className=' max-w-4xl grid grid-cols-2 m-auto py-20 gap-10' key={game.id}>
 
                         <aside>
                             <img src={game.screenshots[screenshotIndex].image} alt='game'  className='w-[600px] h-[250px] object-cover' />
@@ -60,7 +63,59 @@ export const GameDetail: FC = () => {
 
                         <aside>
                             <h1 className=' text-4xl text-white px-5'>{game.title}</h1>
+                            <button className='mx-5 bg-blue-500 px-3 py-1  text-white rounded-md mt-10'><a href={game.game_url} className=' no-underline' >Download</a></button>
+
+                            <section className='px-5 my-10 flex justify-between max-w-[250px]'>
+
+                                <aside className='text-gray-500'>
+                                    <p>Release Date : </p>
+                                    <p>Developer : </p>
+                                    <p>Publisher : </p>
+                                    <p>Genre : </p>
+                                    <p>Platform</p>
+                                </aside>
+
+                                <aside className='text-blue-500'>
+                                    <p>{game.release_date.split("-").reverse().join("-")}</p>
+                                    <p>{game.developer}</p>
+                                    <p>{game.publisher}</p>
+                                    <p>{game.genre}</p>
+                                    <p>{game.platform}</p> 
+                                </aside>
+                                
+                            </section>
+
+                            <h1 className='px-5 text-white'>Game Description : </h1>
+
                             <p className=' text-gray-500 px-5 mt-5'>{description ? game.description : game.description.slice(0, 400)}... <span onClick={() => setDescription(!description)} className='text-blue-500 cursor-pointer'>see more</span> </p>
+
+                            {game.minimum_system_requirements ?  (
+
+                            <div className='mt-10 px-5 text-white'>
+                                <h1>Minimum System Requirement : </h1>
+
+                                <section className=' mt-5 flex justify-between'>
+
+                                <aside className='text-gray-500'>
+                                    <p>Graphics : </p>
+                                    <p>Memory : </p>
+                                    <p>OS : </p>
+                                    <p>Processor : </p>
+                                    <p>Storage : </p>
+                                </aside>
+
+                                <aside className='text-blue-500'>
+                                    <p>{game.minimum_system_requirements.graphics}</p>
+                                    <p>{game.minimum_system_requirements.memory}</p>
+                                    <p>{game.minimum_system_requirements.os}</p>
+                                    <p>{game.minimum_system_requirements.processor}</p>
+                                    <p>{game.minimum_system_requirements.storage}</p>
+                                </aside>
+                                
+                            </section>
+                            </div>
+
+                            ) : null}
                         </aside>
                         
                     </div>

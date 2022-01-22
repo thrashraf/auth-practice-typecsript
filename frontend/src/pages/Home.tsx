@@ -11,7 +11,7 @@ const Home = () => {
     useEffect(() => {
         axios.get('http://localhost:5000/game/games') 
         .then(res => {
-            console.log(res)
+            //console.log(res)
             setData(res.data)
             
         })

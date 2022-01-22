@@ -19,7 +19,7 @@ export const Navbar = () => {
                 <img src={logo} alt='logo' className='w-20 h-20 p-2 object-contain' />
 
                 <ul className='flex items-center'>
-                    <li className=' mr-8 cursor-pointer w-[32px] '><img src={user.length > 0 ? user[0].imageUrl : null} className=' rounded-[50%] object-cover' alt='profile' /></li>
+                    <li className=' mr-8 cursor-pointer w-[32px] '><img src={user.length > 0 ? user[0].imageUrl : null} className=' rounded-[50%] object-cover' alt='profile' style={user.length > 0 ? {display: 'block'}: {display: 'none'}}/></li>
                     <li className=' font-medium mr-8 cursor-pointer'>{user.length > 0 ? user[0].username : null}</li>
                     <li className=' font-medium mr-8 cursor-pointer'>{user.length > 0 ? 'Logout' : <Link to={'/login'}>Login</Link>}</li>
                 </ul>
