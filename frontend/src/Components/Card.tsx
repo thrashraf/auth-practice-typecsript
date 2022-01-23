@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import browserIcon from '../assets/browser.png'
 import windowsIcon from '../assets/windows.png'
 import { Link } from 'react-router-dom'
@@ -27,27 +27,27 @@ export const Card = (props: Props) => {
     const [yPosition, setYPosition] = useState<number>(0);
     
 
-
+    // ? addEventListener to scroll save it on local storage
     useEffect(() => {
 
         const handleScroll = () => {
             
             setYPosition(window.pageYOffset)
             localStorage.setItem('yPosition', yPosition.toString())
-
         }
       
         window.addEventListener('scroll', handleScroll);
 
         return () => {
+            // ? Remove listener when component unmounts
             window.removeEventListener('scroll', handleScroll);
         };
 
-        // Remove listener when component unmounts
       }, [yPosition])
 
 
-
+    
+    //? getValue from localStorage and scrollTo that position
     useEffect(() => {
         const scrollPosition = localStorage.getItem('yPosition');
 
@@ -65,8 +65,7 @@ export const Card = (props: Props) => {
             <div className=' grid grid-cols-3 m-auto gap-7 max-w-4xl mt-10 '>
 
             
-            
-            {props.data.slice(0, +card > 9 ? card : props.numberOfCard).map(games => {
+            {props.data.slice(0, card > 9 ? card : props.numberOfCard).map(games => {
                 // console.log(games);
                 return (
                 <Link to={`/game-detail/${games.id}`} state={games.id} >

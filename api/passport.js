@@ -1,6 +1,12 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GithubStrategy = require('passport-github2').Strategy;
+
 const GOOGLE_CLIENT_ID = "131435089062-dqtt9a7t6814v7hmkvir6ru5992ijuum.apps.googleusercontent.com"
 const GOOGLE_CLIENT_SECRET = "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"
+
+const GITHUB_CLIENT_ID = "bf3ba94b2b8dc8653b43";
+const GITHUB_CLIENT_SECRET = "ea6b51bdf3508c6bdb06ebebada5a26ce3cc7482";
+
 const passport = require('passport');
 const sql = require('./db');
 const crypto = require('crypto');
@@ -56,6 +62,65 @@ passport.use(new GoogleStrategy({
   })}
   
 ));
+
+
+
+
+passport.use(new GithubStrategy({
+    clientID: GITHUB_CLIENT_ID,
+    clientSecret: GITHUB_CLIENT_SECRET,
+    callbackURL: "http://localhost:5000/auth/github/callback"
+  },
+  function(req, accessToken, refreshToken, profile, done) {
+
+   console.log(profile);
+    const id = crypto.randomBytes(16).toString("hex");
+    
+
+    sql.query(`SELECT * FROM users WHERE id = '${profile.id}'`, (err, rows) => {
+
+      if (rows.length) {
+        //console.log('user already exist')
+
+        const userProfile = {
+          id: rows[0].id,
+          username: rows[0].username,
+          imageUrl: profile.photos[0].value
+        }
+        console.log(userProfile);
+        done(null, userProfile)
+
+
+      } else {
+        
+      console.log('create user')
+      //! need to store id by crypto not the google id.
+      //? create unique id
+      
+
+      sql.query(`INSERT INTO users ( id, role, username, email ) values ('${profile.id}', 'user', '${profile.displayName}', '${profile._json.email}')`, (err, rows) => {
+
+        if (err) return console.log(err);
+
+
+        const userProfile = {
+          id: id,
+          username: profile.displayName,
+          imageUrl: profile.photos[0].value
+        }
+
+        console.log(userProfile);
+        done(null, userProfile)
+      })
+    };
+
+  })}
+  
+));
+
+
+
+
 
 
 //* this gonna send the id to be a cookies to browser

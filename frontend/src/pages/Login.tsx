@@ -12,6 +12,10 @@ export const Login = (props: Props) => {
         window.open("http://localhost:5000/auth/google", "_self")
     }
 
+    const githubAuth = (): void => {
+        window.open("http://localhost:5000/auth/github", "_self")
+    }
+
     return (
         <div className=' w-full grid grid-cols-2 overflow-hidden h-screen bg-[#1f2a48] text-white'>
             <section className='h-screen bg-gradient-to-b from-[#00d4ff] via-[#090979] to-[#020024]'>
@@ -35,7 +39,7 @@ export const Login = (props: Props) => {
                 </section>
 
                 <button className='px-5 py-2 border-2 rounded-lg bg-red-500 text-white border-red-500 w-52 mx-auto my-2' onClick={googleAuth}>Google+</button>
-                <button className='px-5 py-2 border-2 rounded-lg bg-blue-500 text-white border-blue-500 w-52 mx-auto my-2'>Facebook</button>
+                <button className='px-5 py-2 border-2 rounded-lg bg-black text-white border-black w-52 mx-auto my-2' onClick={githubAuth}>Github</button>
             </section>
         </div>
     )

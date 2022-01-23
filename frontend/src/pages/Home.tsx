@@ -23,7 +23,7 @@ const Home = () => {
     }, [])
     
     
-    //console.log(numberOfCard);
+    //? increase card val and save it in a local storage
     const increaseCardValue = (): void => {
 
         setCard((prevValueCard: number) => {
