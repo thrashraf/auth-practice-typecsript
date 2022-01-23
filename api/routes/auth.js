@@ -24,10 +24,11 @@ router.get('/login/fail', (req, res) => {
     });
 })
 
-router.get('/logout', (req, res) => {
+router.get("/logout", (req, res) => {
+    
     req.logout();
-    res.redirect('http://localhost:3000')
-})
+    res.redirect('http://localhost:3000');
+  });
 
 router.get('/google', passport.authenticate('google', {scope: [
     'https://www.googleapis.com/auth/userinfo.profile',
