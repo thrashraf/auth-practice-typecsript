@@ -65,7 +65,7 @@ export const GameDetail: FC = () => {
                             <h1 className=' text-4xl text-white px-5'>{game.title}</h1>
                             <button className='mx-5 bg-blue-500 px-3 py-1  text-white rounded-md mt-10'><a href={game.game_url} className=' no-underline' >Download</a></button>
 
-                            <section className='px-5 my-10 flex justify-between max-w-[250px]'>
+                            <section className='px-5 my-10 flex justify-between max-w-[350px]'>
 
                                 <aside className='text-gray-500'>
                                     <p>Release Date : </p>
