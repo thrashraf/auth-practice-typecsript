@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const { default: axios } = require('axios');
 const passport = require('passport')
-
+const sql = require('../db');
+const crypto = require('crypto');
 
 router.get('/login/success', (req, res) => {
 
@@ -20,6 +20,7 @@ router.get('/login/success', (req, res) => {
 router.get('/login/fail', (req, res) => {
     res.status(401).json({
         success: false,
+        redirect: '/login',
         message: 'fail to login'
     });
 })
@@ -47,5 +48,56 @@ router.get('/github/callback', passport.authenticate('github', {
     successRedirect: 'http://localhost:3000',
     failureRedirect: 'login/fail'
 }))
+
+router.post('/signup',(req, res) => {
+    const {username, email, password} = req.body
+
+    const id = crypto.randomBytes(16).toString("hex");
+
+    if (password.length < 8) return res.status(400).send({error: 'password minimum 8 length'})
+
+    sql.query(`SELECT * FROM users WHERE username = '${username}'`, (err, rows) => {
+
+                if (rows.length) {
+                  console.log('user already exist')
+        
+                  const userProfile = {
+                    id: rows[0].id,
+                    username: rows[0].username,
+                    
+                  }
+
+                  res.json({message: 'user already exist, please sign in'})
+                  console.log(userProfile);
+
+                  //done(null, userProfile)
+        
+        
+                } else {
+                  
+                console.log('create user')
+                //! need to store id by crypto not the google id.
+        
+                console.log(req);
+                //? create unique id
+                
+        
+            sql.query(`INSERT INTO users ( id, role, username, email ) values ('${id}', 'user', '${username}', '${email}')`, (err, rows) => {
+        
+                  if (err) return console.log(err);
+        
+                  const userProfile = {
+                    id: id,
+                    username: username,
+                    
+                  }
+                  
+                  //console.log(userProfile);
+                  //done(null, userProfile)
+            });
+        }
+    });
+        
+});
 
 module.exports = router
