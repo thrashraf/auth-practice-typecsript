@@ -11,6 +11,7 @@ const GITHUB_CLIENT_SECRET = "ea6b51bdf3508c6bdb06ebebada5a26ce3cc7482";
 const passport = require('passport');
 const sql = require('./db');
 const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
 
 
 // ? ================= PASSPORT GOOGLE ===========================
@@ -126,69 +127,43 @@ passport.use(new GithubStrategy({
 
 
 
-// passport.use('local-signup', new localStrategy ({
+passport.use(new localStrategy ({
 
-//     usernameField: 'username',
-//     passwordField: 'password',
-//     passReqToCallback : true // allows us to pass back the entire request to the callback
-    
-//   },
+  usernameField: 'username',
+  passwordField: 'password',
+  session: false
 
-//   (req, username, password, done)  => {
+}, 
+  (username, password, done) => {
 
-//     const id = crypto.randomBytes(16).toString("hex");
+    sql.query(`SELECT * FROM users WHERE username = '${username}'`, (err, rows) => {
 
-//     console.log(req, username);
+      if (rows.length) {
+        //console.log('user already exist')
 
-//     sql.query(`SELECT * FROM users WHERE username = '${username}'`, (err, rows) => {
+        const userProfile = {
+          id: rows[0].id,
+          username: rows[0].username
+        }
 
-//         if (rows.length) {
-//           //console.log('user already exist')
+        const userPassword = rows[0].password;
 
-//           const userProfile = {
-//             id: rows[0].id,
-//             username: rows[0].username,
-//             imageUrl: profile.photos[0].value
-//           }
-//           console.log(userProfile);
-//           //done(null, userProfile)
-
-
-//         } else {
-          
-//         console.log('create user')
-//         //! need to store id by crypto not the google id.
-
-//         console.log(req);
-//         //? create unique id
+        if (bcrypt.compareSync(password, userPassword)) {
+          return done(null, userProfile)
+        } else {
+          return done(new Error('Invalid password'));
+        }        
         
 
-//         sql.query(`INSERT INTO users ( id, role, username, email ) values ('${id}', 'user', '${username}', '${null}')`, (err, rows) => {
+      } else {
 
-//           if (err) return console.log(err);
+        return done(new Error('Invalid username'));
+      }
 
-//           const userProfile = {
-//             id: id,
-//             username: username,
-            
-//           }
-
-//           console.log(userProfile);
-//           //done(null, userProfile)
-//         });
-//       }
-//     });
-//   }
-// ));
-
-
-
-
-
-
-
-
-
+    });
+    
+  })
+)
 
 
 
