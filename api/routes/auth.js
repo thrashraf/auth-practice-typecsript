@@ -51,6 +51,11 @@ router.get('/github/callback', passport.authenticate('github', {
     failureRedirect: 'login/fail'
 }))
 
+
+
+
+
+
 router.post('/signup',(req, res) => {
     const {username, email, password} = req.body
 
@@ -87,11 +92,7 @@ router.post('/signup',(req, res) => {
             
                     if (err) return console.log(err);
             
-                    const userProfile = {
-                        id: id,
-                        username: username,
-                        
-                    }
+                    res.json({message: 'please validate your email'})
                         
                 });
         }
