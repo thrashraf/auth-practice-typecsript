@@ -2,6 +2,8 @@ const router = require('express').Router();
 const passport = require('passport')
 const sql = require('../db');
 const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
+const saltRounds = 10
 
 router.get('/login/success', (req, res) => {
 
@@ -56,6 +58,8 @@ router.post('/signup',(req, res) => {
 
     if (password.length < 8) return res.status(400).send({error: 'password minimum 8 length'})
 
+    const hash = bcrypt.hashSync(password, saltRounds);
+
     sql.query(`SELECT * FROM users WHERE username = '${username}'`, (err, rows) => {
 
                 if (rows.length) {
@@ -78,23 +82,18 @@ router.post('/signup',(req, res) => {
                 console.log('create user')
                 //! need to store id by crypto not the google id.
         
-                console.log(req);
-                //? create unique id
-                
         
-            sql.query(`INSERT INTO users ( id, role, username, email ) values ('${id}', 'user', '${username}', '${email}')`, (err, rows) => {
-        
-                  if (err) return console.log(err);
-        
-                  const userProfile = {
-                    id: id,
-                    username: username,
-                    
-                  }
-                  
-                  //console.log(userProfile);
-                  //done(null, userProfile)
-            });
+                sql.query(`INSERT INTO users ( id, role, username, email, password ) values ('${id}', 'user', '${username}', '${email}', '${hash}')`, (err, rows) => {
+            
+                    if (err) return console.log(err);
+            
+                    const userProfile = {
+                        id: id,
+                        username: username,
+                        
+                    }
+                        
+                });
         }
     });
         
