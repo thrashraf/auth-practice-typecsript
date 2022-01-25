@@ -62,7 +62,7 @@ export const Card = (props: Props) => {
     const card: any = localStorage.getItem('card');
     return (
         
-            <div className=' grid grid-cols-3 m-auto gap-7 max-w-4xl mt-10 '>
+            <div className=' grid grid-cols-1 m-auto gap-7 max-w-4xl mt-10 md:grid-cols-2 lg:grid-cols-3 '>
 
             
             {props.data.slice(0, card > 9 ? card : props.numberOfCard).map(games => {

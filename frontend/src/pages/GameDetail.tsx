@@ -47,9 +47,9 @@ export const GameDetail: FC = () => {
 
                 return (
 
-                    <div className=' max-w-4xl grid grid-cols-2 m-auto py-20 gap-10' key={game.id}>
+                    <div className=' max-w-4xl grid grid-cols-1 lg:grid-cols-2 m-auto py-20 gap-10' key={game.id}>
 
-                        <aside>
+                        <aside className='sm:max-w-xl m-auto lg:m-px px-5 lg:px-0 '>
                             <img src={game.screenshots[screenshotIndex].image} alt='game'  className='w-[600px] h-[250px] object-cover' />
 
                             <section className='grid grid-cols-3 mt-4 gap-5'>
@@ -61,7 +61,7 @@ export const GameDetail: FC = () => {
                             </section>
                         </aside>
 
-                        <aside>
+                        <aside className='sm:max-w-xl m-auto lg:m-px px-5 lg:px-0'>
                             <h1 className=' text-4xl text-white px-5'>{game.title}</h1>
                             <button className='mx-5 bg-blue-500 px-3 py-1  text-white rounded-md mt-10'><a href={game.game_url} className=' no-underline' >Download</a></button>
 
