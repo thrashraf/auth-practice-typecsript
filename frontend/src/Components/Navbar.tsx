@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import UserContext from '../UserContext'
-import logo from '../assets/logo.png'
-import axios from 'axios'
+import React, { useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import UserContext from '../UserContext';
+import logo from '../assets/logo.png';
 
 
 export const Navbar = () => {
@@ -35,8 +34,12 @@ export const Navbar = () => {
                 <img src={logo} alt='logo' className='w-20 h-20 p-2 object-contain' />
 
                 <ul className='flex items-center'>
-                    <li className=' mr-8 cursor-pointer w-[32px] '><img src={user.length > 0 ? user[0].imageUrl : null} className=' rounded-[50%] object-cover' alt='profile' style={user.length > 0 ? {display: 'block'}: {display: 'none'}}/></li>
-                    <li className=' font-medium mr-8 cursor-pointer'>{user.length > 0 ? user[0].username : null}</li>
+                    {user.length > 0 ?
+                        <aside className='flex items-center'>
+                            <li className=' mr-8 cursor-pointer w-[32px] '><img src={ user[0].imageUrl } className=' rounded-[50%] object-cover' alt='profile' /></li>
+                            <li className=' font-medium mr-8 cursor-pointer'>{ user[0].username }</li>
+                        </aside> 
+                    : null}
                     <li className=' font-medium mr-8 cursor-pointer' onClick={user.length > 0 ? logout : login}>{user.length > 0 ? 'Logout'  : 'login'}</li>
                 </ul>
             </div>

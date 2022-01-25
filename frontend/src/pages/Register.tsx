@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import registerImage from '../assets/register.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 
 
 export const Register = () => {
@@ -29,9 +30,9 @@ export const Register = () => {
     }
 
     return (
-        <div className=' w-full grid grid-cols-2 overflow-hidden h-screen bg-[#1f2a48] text-white'>
+        <div className=' w-full block lg:grid grid-cols-2 overflow-hidden h-screen bg-[#1f2a48] text-white'>
             
-            <section className='flex flex-col max-w-md mx-[20%]'>
+            <section className='flex flex-col max-w-md lg:mx-[20%] m-auto px-[5%] pt-[100px] lg:pt-0'>
                 <h1 className=' text-lg text-gray-400 font-normal mt-20'>Register Now</h1>
                 <p className=' text-3xl font-semibold'>Sign Up For Free</p> 
                 
@@ -47,10 +48,10 @@ export const Register = () => {
                     <span className=' border-t-[1px] border-gray-200 w-32 ml-2'></span>
                 </section>
 
-                <p className='m-auto text-gray-300'>I already have an account. Sign In</p>
+                <p className='m-auto text-gray-300'>I already have an account. <Link to='/login' className='text-blue-500'>Sign In</Link></p>
             </section>
 
-            <section className='h-screen bg-gradient-to-b from-[#00d4ff] via-[#090979] to-[#020024]'>
+            <section className='h-screen bg-gradient-to-b from-[#00d4ff] via-[#090979] to-[#020024] hidden lg:block'>
                 <img src={registerImage} alt="login" className='h-screen object-cover'/>
             </section>
 

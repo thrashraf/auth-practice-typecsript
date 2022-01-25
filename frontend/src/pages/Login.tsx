@@ -33,13 +33,13 @@ export const Login = (props: Props) => {
     }
 
     return (
-        <div className=' w-full grid grid-cols-2 overflow-hidden h-screen bg-[#1f2a48] text-white'>
-            <section className='h-screen bg-gradient-to-b from-[#00d4ff] via-[#090979] to-[#020024]'>
+        <div className=' w-full block lg:grid grid-cols-2 overflow-hidden h-screen bg-[#1f2a48] text-white'>
+            <section className='h-screen bg-gradient-to-b from-[#00d4ff] via-[#090979] to-[#020024] hidden lg:block '>
                 <img src={loginImage} alt="login" className='h-screen object-cover'/>
             </section>
             
 
-            <section className='flex flex-col max-w-md mx-[20%]'>
+            <section className='flex flex-col max-w-md lg:mx-[20%] m-auto px-[5%] pt-[100px] lg:pt-0'>
                 <h1 className=' text-lg text-gray-400 font-normal mt-20'>Welcome Back.</h1>
                 <p className=' text-3xl font-semibold'>Log In to Continue.</p>
                 
