@@ -131,13 +131,15 @@ passport.use(new localStrategy ({
 
   usernameField: 'username',
   passwordField: 'password',
-  session: false
+  passReqToCallback: true,
+ 
 
 }, 
-  (username, password, done) => {
+  (req, username, password, done) => {
 
+    
     sql.query(`SELECT * FROM users WHERE username = '${username}'`, (err, rows) => {
-
+      
       if (rows.length) {
         //console.log('user already exist')
 
@@ -147,17 +149,18 @@ passport.use(new localStrategy ({
         }
 
         const userPassword = rows[0].password;
+        //console.log(userPassword);
 
         if (bcrypt.compareSync(password, userPassword)) {
+          console.log('correct pass');
           return done(null, userProfile)
         } else {
-          return done(new Error('Invalid password'));
+         console.log('invalid password');
         }        
         
-
       } else {
-
-        return done(new Error('Invalid username'));
+        console.log('no user');
+        
       }
 
     });
@@ -177,9 +180,11 @@ passport.serializeUser((user, done) => {
 //* this gonna be the find the user by the id and send back user information
 //? need to make find by id
 passport.deserializeUser((user, done) => {
+
+  console.log(user);
     
   sql.query(`SELECT * FROM users WHERE id = '${user.id}'`, (err, rows) => {
-
+    console.log('lol');
     if (err) return console.log(err);
 
     done(null, user)

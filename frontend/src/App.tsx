@@ -18,6 +18,7 @@ const App:FC  = () => {
 
     axios.get('http://localhost:5000/auth/login/success', {withCredentials: true})
     .then(res => {
+      console.log(res.data);
       const newUser = res.data.user;
       setUser(user => [...user, newUser])
       
@@ -25,6 +26,8 @@ const App:FC  = () => {
     .catch(err => console.log(err))
     
   }, [])
+
+  console.log('lol');
 
   return (
     <div className='  w-full h-full'>

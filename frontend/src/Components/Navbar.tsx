@@ -13,6 +13,10 @@ export const Navbar = () => {
 
     const user: any = useContext(UserContext)
 
+    if (user) {
+        console.log(user);
+    }
+
     const logout = () => {
         window.open('http://localhost:5000/auth/logout', '_self');
     }

@@ -9,6 +9,8 @@ router.get('/login/success', (req, res) => {
 
     if (req.user) {
 
+        console.log(req.user);
+
         res.status(200).json({
             success: true,
             message: 'successful',
@@ -100,12 +102,16 @@ router.post('/signup',(req, res) => {
         
 });
 
-router.post('login', (req, res) => {
-
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login'
-    })
-})
+router.post('/login', 
+  passport.authenticate('local', { 
+    failureRedirect: 'login/fail'
+    }), (req, res) => {
+        
+        if (req.user) {
+            res.json({redirect: '/'})
+        }
+    }
+  
+);
 
 module.exports = router
