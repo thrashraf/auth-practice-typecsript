@@ -1,7 +1,9 @@
 import axios from 'axios'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
-import loginImage from '../assets/login.png'
+import loginImage from '../assets/login.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 interface Props {
@@ -22,14 +24,13 @@ export const Login = (props: Props) => {
         window.open("http://localhost:5000/auth/github", "_self")
     }
 
-
     const login = () => {
         axios.post('http://localhost:5000/auth/login', {username, password}, {withCredentials: true})
         .then(res => {
             navigate('/')
             window.location.reload();
         })
-        .catch(err => console.log(err))
+        .catch(err => toast.error(err.response.data.message))
     }
 
     return (
@@ -57,6 +58,18 @@ export const Login = (props: Props) => {
                 <button className='px-5 py-2 border-2 rounded-lg bg-red-500 text-white border-red-500 w-52 mx-auto my-2' onClick={googleAuth}>Google+</button>
                 <button className='px-5 py-2 border-2 rounded-lg bg-black text-white border-black w-52 mx-auto my-2' onClick={githubAuth}>Github</button>
             </section>
+
+            <ToastContainer
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     )
 }

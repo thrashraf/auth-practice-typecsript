@@ -155,12 +155,12 @@ passport.use(new localStrategy ({
           console.log('correct pass');
           return done(null, userProfile)
         } else {
-         console.log('invalid password');
+          return done(null, false, { message: 'Incorrect password.' });
         }        
         
       } else {
-        console.log('no user');
-        
+        return done(null, false, { message: 'Incorrect password.' });
+    
       }
 
     });
